@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qf.work.partner.dao.DiInfoDao">
+  <resultMap id="BaseResultMap" type="qf.work.partner.entity.DiInfo">
+    <id column="di_id" jdbcType="INTEGER" property="diId" />
+    <result column="di_name" jdbcType="VARCHAR" property="diName" />
+    <result column="di_equip" jdbcType="VARCHAR" property="diEquip" />
+    <result column="di_date" jdbcType="DATE" property="diDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="qf.work.partner.entity.DiInfo">
+    <result column="user_id" jdbcType="VARBINARY" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    di_id, di_name, di_equip, di_date
+  </sql>
+  <sql id="Blob_Column_List">
+    user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from di_info
+    where di_id = #{diId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from di_info
+    where di_id = #{diId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="di_id" keyProperty="diId" parameterType="qf.work.partner.entity.DiInfo" useGeneratedKeys="true">
+    insert into di_info (di_name, di_equip, di_date, 
+      user_id)
+    values (#{diName,jdbcType=VARCHAR}, #{diEquip,jdbcType=VARCHAR}, #{diDate,jdbcType=DATE}, 
+      #{userId,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" keyColumn="di_id" keyProperty="diId" parameterType="qf.work.partner.entity.DiInfo" useGeneratedKeys="true">
+    insert into di_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="diName != null">
+        di_name,
+      </if>
+      <if test="diEquip != null">
+        di_equip,
+      </if>
+      <if test="diDate != null">
+        di_date,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="diName != null">
+        #{diName,jdbcType=VARCHAR},
+      </if>
+      <if test="diEquip != null">
+        #{diEquip,jdbcType=VARCHAR},
+      </if>
+      <if test="diDate != null">
+        #{diDate,jdbcType=DATE},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qf.work.partner.entity.DiInfo">
+    update di_info
+    <set>
+      <if test="diName != null">
+        di_name = #{diName,jdbcType=VARCHAR},
+      </if>
+      <if test="diEquip != null">
+        di_equip = #{diEquip,jdbcType=VARCHAR},
+      </if>
+      <if test="diDate != null">
+        di_date = #{diDate,jdbcType=DATE},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where di_id = #{diId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="qf.work.partner.entity.DiInfo">
+    update di_info
+    set di_name = #{diName,jdbcType=VARCHAR},
+      di_equip = #{diEquip,jdbcType=VARCHAR},
+      di_date = #{diDate,jdbcType=DATE},
+      user_id = #{userId,jdbcType=VARBINARY}
+    where di_id = #{diId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qf.work.partner.entity.DiInfo">
+    update di_info
+    set di_name = #{diName,jdbcType=VARCHAR},
+      di_equip = #{diEquip,jdbcType=VARCHAR},
+      di_date = #{diDate,jdbcType=DATE}
+    where di_id = #{diId,jdbcType=INTEGER}
+  </update>
+</mapper>

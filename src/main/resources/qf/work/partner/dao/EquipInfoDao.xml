@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qf.work.partner.dao.EquipInfoDao">
+  <resultMap id="BaseResultMap" type="qf.work.partner.entity.EquipInfo">
+    <id column="equip_id" jdbcType="INTEGER" property="equipId" />
+    <result column="equip_name" jdbcType="VARCHAR" property="equipName" />
+    <result column="equip_date" jdbcType="DATE" property="equipDate" />
+    <result column="equip_price" jdbcType="INTEGER" property="equipPrice" />
+    <result column="equip_use" jdbcType="INTEGER" property="equipUse" />
+    <result column="equip_status" jdbcType="VARCHAR" property="equipStatus" />
+    <result column="equip_num" jdbcType="INTEGER" property="equipNum" />
+    <result column="equip_off" jdbcType="BOOLEAN" property="equipOff" />
+    <result column="di_id" jdbcType="INTEGER" property="diId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    equip_id, equip_name, equip_date, equip_price, equip_use, equip_status, equip_num, 
+    equip_off, di_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from equip_info
+    where equip_id = #{equipId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from equip_info
+    where equip_id = #{equipId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="equip_id" keyProperty="equipId" parameterType="qf.work.partner.entity.EquipInfo" useGeneratedKeys="true">
+    insert into equip_info (equip_name, equip_date, equip_price, 
+      equip_use, equip_status, equip_num, 
+      equip_off, di_id)
+    values (#{equipName,jdbcType=VARCHAR}, #{equipDate,jdbcType=DATE}, #{equipPrice,jdbcType=INTEGER}, 
+      #{equipUse,jdbcType=INTEGER}, #{equipStatus,jdbcType=VARCHAR}, #{equipNum,jdbcType=INTEGER}, 
+      #{equipOff,jdbcType=BOOLEAN}, #{diId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="equip_id" keyProperty="equipId" parameterType="qf.work.partner.entity.EquipInfo" useGeneratedKeys="true">
+    insert into equip_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipName != null">
+        equip_name,
+      </if>
+      <if test="equipDate != null">
+        equip_date,
+      </if>
+      <if test="equipPrice != null">
+        equip_price,
+      </if>
+      <if test="equipUse != null">
+        equip_use,
+      </if>
+      <if test="equipStatus != null">
+        equip_status,
+      </if>
+      <if test="equipNum != null">
+        equip_num,
+      </if>
+      <if test="equipOff != null">
+        equip_off,
+      </if>
+      <if test="diId != null">
+        di_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipName != null">
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipDate != null">
+        #{equipDate,jdbcType=DATE},
+      </if>
+      <if test="equipPrice != null">
+        #{equipPrice,jdbcType=INTEGER},
+      </if>
+      <if test="equipUse != null">
+        #{equipUse,jdbcType=INTEGER},
+      </if>
+      <if test="equipStatus != null">
+        #{equipStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="equipNum != null">
+        #{equipNum,jdbcType=INTEGER},
+      </if>
+      <if test="equipOff != null">
+        #{equipOff,jdbcType=BOOLEAN},
+      </if>
+      <if test="diId != null">
+        #{diId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qf.work.partner.entity.EquipInfo">
+    update equip_info
+    <set>
+      <if test="equipName != null">
+        equip_name = #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipDate != null">
+        equip_date = #{equipDate,jdbcType=DATE},
+      </if>
+      <if test="equipPrice != null">
+        equip_price = #{equipPrice,jdbcType=INTEGER},
+      </if>
+      <if test="equipUse != null">
+        equip_use = #{equipUse,jdbcType=INTEGER},
+      </if>
+      <if test="equipStatus != null">
+        equip_status = #{equipStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="equipNum != null">
+        equip_num = #{equipNum,jdbcType=INTEGER},
+      </if>
+      <if test="equipOff != null">
+        equip_off = #{equipOff,jdbcType=BOOLEAN},
+      </if>
+      <if test="diId != null">
+        di_id = #{diId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where equip_id = #{equipId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qf.work.partner.entity.EquipInfo">
+    update equip_info
+    set equip_name = #{equipName,jdbcType=VARCHAR},
+      equip_date = #{equipDate,jdbcType=DATE},
+      equip_price = #{equipPrice,jdbcType=INTEGER},
+      equip_use = #{equipUse,jdbcType=INTEGER},
+      equip_status = #{equipStatus,jdbcType=VARCHAR},
+      equip_num = #{equipNum,jdbcType=INTEGER},
+      equip_off = #{equipOff,jdbcType=BOOLEAN},
+      di_id = #{diId,jdbcType=INTEGER}
+    where equip_id = #{equipId,jdbcType=INTEGER}
+  </update>
+</mapper>
